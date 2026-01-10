@@ -22,7 +22,6 @@ import com.tictactoe.ui.screens.TicTacToeSetupScreen
 import com.tictactoe.ui.screens.games.AdditionGameScreen
 import com.tictactoe.ui.screens.games.ColorMatchingGameScreen
 import com.tictactoe.ui.screens.games.NumberSequenceGameScreen
-import com.tictactoe.ui.screens.games.PatternGameScreen
 import com.tictactoe.ui.screens.games.ShapeGameScreen
 import com.tictactoe.ui.screens.games.SubtractionGameScreen
 import com.tictactoe.ui.theme.TicTacToeTheme
@@ -141,14 +140,6 @@ fun TicTacToeApp(
         
         composable("number_sequence") {
             NumberSequenceGameScreen(
-                onBack = {
-                    navController.popBackStack()
-                }
-            )
-        }
-        
-        composable("patterns") {
-            PatternGameScreen(
                 onBack = {
                     navController.popBackStack()
                 }

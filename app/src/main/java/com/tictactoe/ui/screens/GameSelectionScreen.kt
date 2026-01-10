@@ -4,6 +4,9 @@ import androidx.compose.animation.core.*
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
@@ -37,7 +40,7 @@ fun GameSelectionScreen(
         listOf(
             GameCard(
                 title = "Tic-Tac-Toe",
-                description = "Classic game for two players",
+                description = "Strategy game",
                 icon = Icons.Default.Close,
                 gradient = listOf(Color(0xFF6366F1), Color(0xFF8B5CF6)),
                 route = "tictactoe"
@@ -50,36 +53,29 @@ fun GameSelectionScreen(
                 route = "number_sequence"
             ),
             GameCard(
-                title = "Number Patterns",
-                description = "Find the pattern!",
-                icon = Icons.Default.Star,
-                gradient = listOf(Color(0xFFF59E0B), Color(0xFFD97706)),
-                route = "patterns"
-            ),
-            GameCard(
                 title = "Addition",
-                description = "Practice adding numbers",
+                description = "Add numbers",
                 icon = Icons.Default.Add,
                 gradient = listOf(Color(0xFFEC4899), Color(0xFFDB2777)),
                 route = "addition"
             ),
             GameCard(
                 title = "Subtraction",
-                description = "Practice subtracting",
+                description = "Subtract numbers",
                 icon = Icons.Default.Remove,
                 gradient = listOf(Color(0xFF3B82F6), Color(0xFF2563EB)),
                 route = "subtraction"
             ),
             GameCard(
                 title = "Color Matching",
-                description = "Learn colors!",
+                description = "Learn colors",
                 icon = Icons.Default.Palette,
-                gradient = listOf(Color(0xFFEC4899), Color(0xFFDB2777)),
+                gradient = listOf(Color(0xFFF59E0B), Color(0xFFD97706)),
                 route = "colors"
             ),
             GameCard(
                 title = "Shape Recognition",
-                description = "Identify shapes!",
+                description = "Identify shapes",
                 icon = Icons.Default.Category,
                 gradient = listOf(Color(0xFF8B5CF6), Color(0xFF7C3AED)),
                 route = "shapes"
@@ -110,14 +106,16 @@ fun GameSelectionScreen(
             )
         }
     ) { padding ->
-        Column(
+        LazyVerticalGrid(
+            columns = GridCells.Fixed(2),
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
                 .padding(16.dp),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
-            games.forEach { game ->
+            items(games) { game ->
                 GameCardItem(
                     game = game,
                     onClick = { onNavigateToGame(game.route) }
@@ -145,7 +143,7 @@ fun GameCardItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .height(120.dp)
+            .height(140.dp)
             .scale(scale)
             .clickable {
                 isPressed = true
@@ -158,39 +156,40 @@ fun GameCardItem(
             modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    Brush.horizontalGradient(game.gradient)
+                    Brush.verticalGradient(game.gradient)
                 )
         ) {
-            Row(
+            Column(
                 modifier = Modifier
                     .fillMaxSize()
-                    .padding(20.dp),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center
             ) {
-                Column(
-                    modifier = Modifier.weight(1f),
-                    verticalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = game.title,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.White
-                    )
-                    Spacer(modifier = Modifier.height(4.dp))
-                    Text(
-                        text = game.description,
-                        fontSize = 14.sp,
-                        color = Color.White.copy(alpha = 0.9f)
-                    )
-                }
-                
                 Icon(
                     imageVector = game.icon,
                     contentDescription = game.title,
                     modifier = Modifier.size(48.dp),
-                    tint = Color.White.copy(alpha = 0.8f)
+                    tint = Color.White
+                )
+                
+                Spacer(modifier = Modifier.height(8.dp))
+                
+                Text(
+                    text = game.title,
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.White,
+                    textAlign = TextAlign.Center
+                )
+                
+                Spacer(modifier = Modifier.height(4.dp))
+                
+                Text(
+                    text = game.description,
+                    fontSize = 12.sp,
+                    color = Color.White.copy(alpha = 0.9f),
+                    textAlign = TextAlign.Center
                 )
             }
         }
