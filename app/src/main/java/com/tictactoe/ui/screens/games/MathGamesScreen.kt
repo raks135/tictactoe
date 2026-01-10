@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tictactoe.domain.games.MathGameEngine
 import com.tictactoe.domain.games.MathQuestion
+import com.tictactoe.ui.components.CharacterFeedback
 import kotlinx.coroutines.delay
 
 @Composable
@@ -140,14 +141,11 @@ private fun MathGameScreen(
                     }
                 )
                 
-                // Feedback
-                AnimatedVisibility(
-                    visible = showFeedback != null,
-                    enter = slideInVertically() + fadeIn(),
-                    exit = slideOutVertically() + fadeOut()
-                ) {
-                    MathFeedbackMessage(isCorrect = showFeedback ?: false)
-                }
+                // Feedback with Character
+                CharacterFeedback(
+                    isCorrect = showFeedback ?: false,
+                    isVisible = showFeedback != null
+                )
             }
         }
     }

@@ -18,6 +18,7 @@ import com.tictactoe.ui.screens.GameScreen
 import com.tictactoe.ui.screens.GameSelectionScreen
 import com.tictactoe.ui.screens.MenuScreen
 import com.tictactoe.ui.screens.SettingsScreen
+import com.tictactoe.ui.screens.TicTacToeSetupScreen
 import com.tictactoe.ui.screens.games.AdditionGameScreen
 import com.tictactoe.ui.screens.games.NumberSequenceGameScreen
 import com.tictactoe.ui.screens.games.PatternGameScreen
@@ -104,9 +105,22 @@ fun TicTacToeApp(
             GameSelectionScreen(
                 onNavigateToGame = { route ->
                     when (route) {
-                        "tictactoe" -> navController.navigate("game")
+                        "tictactoe" -> navController.navigate("tictactoe_setup")
                         else -> navController.navigate(route)
                     }
+                }
+            )
+        }
+        
+        composable("tictactoe_setup") {
+            TicTacToeSetupScreen(
+                onStartGame = { mode, difficulty ->
+                    viewModel.setGameMode(mode)
+                    viewModel.setDifficulty(difficulty)
+                    navController.navigate("game")
+                },
+                onBack = {
+                    navController.popBackStack()
                 }
             )
         }

@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tictactoe.ui.components.CharacterFeedback
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
@@ -122,14 +123,11 @@ fun PatternGameScreen(
                     }
                 )
                 
-                // Feedback
-                AnimatedVisibility(
-                    visible = showFeedback != null,
-                    enter = slideInVertically() + fadeIn(),
-                    exit = slideOutVertically() + fadeOut()
-                ) {
-                    PatternFeedbackMessage(isCorrect = showFeedback ?: false)
-                }
+                // Feedback with Character
+                CharacterFeedback(
+                    isCorrect = showFeedback ?: false,
+                    isVisible = showFeedback != null
+                )
             }
         }
     }

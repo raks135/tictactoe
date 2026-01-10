@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tictactoe.domain.games.NumberGameEngine
 import com.tictactoe.domain.games.NumberQuestion
+import com.tictactoe.ui.components.CharacterFeedback
 import kotlinx.coroutines.delay
 
 @Composable
@@ -119,14 +120,11 @@ fun NumberSequenceGameScreen(
                     }
                 )
                 
-                // Feedback
-                AnimatedVisibility(
-                    visible = showFeedback != null,
-                    enter = slideInVertically() + fadeIn(),
-                    exit = slideOutVertically() + fadeOut()
-                ) {
-                    FeedbackMessage(isCorrect = showFeedback ?: false)
-                }
+                // Feedback with Character
+                CharacterFeedback(
+                    isCorrect = showFeedback ?: false,
+                    isVisible = showFeedback != null
+                )
             }
         }
     }
