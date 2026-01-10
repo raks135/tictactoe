@@ -26,6 +26,8 @@ jobs:
     
     - name: Build Debug APK
       run: ./gradlew assembleDebug --stacktrace --info
+      env:
+        ORG_GRADLE_PROJECT_android.useAndroidX: true
     
     - name: Upload APK
       uses: actions/upload-artifact@v4
