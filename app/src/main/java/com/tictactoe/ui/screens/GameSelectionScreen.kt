@@ -31,7 +31,7 @@ data class GameCard(
 @Composable
 fun GameSelectionScreen(
     onNavigateToGame: (String) -> Unit,
-    onBack: () -> Unit
+    onBack: (() -> Unit)? = null
 ) {
     val games = remember {
         listOf(
@@ -78,14 +78,16 @@ fun GameSelectionScreen(
             CenterAlignedTopAppBar(
                 title = {
                     Text(
-                        "Choose a Game",
+                        "Kids Learning Games",
                         fontWeight = FontWeight.Bold,
                         fontSize = 24.sp
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(Icons.Default.ArrowBack, "Back")
+                    if (onBack != null) {
+                        IconButton(onClick = onBack) {
+                            Icon(Icons.Default.ArrowBack, "Back")
+                        }
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

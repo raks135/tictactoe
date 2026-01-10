@@ -173,15 +173,39 @@ fun MathQuestionCard(
                 .fillMaxWidth()
                 .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            verticalArrangement = Arrangement.spacedBy(20.dp)
         ) {
-            Text(
-                text = question.displayText,
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold,
-                color = Color(0xFFEC4899),
-                textAlign = TextAlign.Center
-            )
+            // Number boxes equation
+            Row(
+                horizontalArrangement = Arrangement.spacedBy(12.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                // First number box
+                NumberBoxLarge(
+                    number = question.num1,
+                    color = Color(0xFFEC4899)
+                )
+                
+                // Operator
+                OperatorBox(operator = question.operator)
+                
+                // Second number box
+                NumberBoxLarge(
+                    number = question.num2,
+                    color = Color(0xFF3B82F6)
+                )
+                
+                // Equals sign
+                Text(
+                    text = "=",
+                    fontSize = 36.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color(0xFF6B7280)
+                )
+                
+                // Question mark box
+                QuestionMarkBox()
+            }
             
             // Visual representation with dots
             Row(
@@ -191,12 +215,93 @@ fun MathQuestionCard(
                 DotGroup(count = question.num1, color = Color(0xFFEC4899))
                 Text(
                     text = question.operator,
-                    fontSize = 32.sp,
+                    fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color(0xFF6B7280)
                 )
                 DotGroup(count = question.num2, color = Color(0xFF3B82F6))
             }
+        }
+    }
+}
+
+@Composable
+fun NumberBoxLarge(number: Int, color: Color) {
+    Card(
+        modifier = Modifier.size(70.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = color
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = number.toString(),
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+fun OperatorBox(operator: String) {
+    Card(
+        modifier = Modifier.size(70.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFFF59E0B)
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+    ) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = operator,
+                fontSize = 40.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+fun QuestionMarkBox() {
+    Card(
+        modifier = Modifier.size(70.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(
+            containerColor = Color(0xFFFEF3C7)
+        ),
+        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp)
+    ) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(
+                    Brush.radialGradient(
+                        colors = listOf(
+                            Color(0xFFFEF3C7),
+                            Color(0xFFFDE68A)
+                        )
+                    )
+                ),
+            contentAlignment = Alignment.Center
+        ) {
+            Text(
+                text = "?",
+                fontSize = 44.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xFFF59E0B)
+            )
         }
     }
 }

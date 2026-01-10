@@ -86,7 +86,7 @@ fun TicTacToeApp(
     
     NavHost(
         navController = navController,
-        startDestination = "menu"
+        startDestination = "game_selection"
     ) {
         composable("menu") {
             MenuScreen(
@@ -107,9 +107,6 @@ fun TicTacToeApp(
                         "tictactoe" -> navController.navigate("game")
                         else -> navController.navigate(route)
                     }
-                },
-                onBack = {
-                    navController.popBackStack()
                 }
             )
         }
