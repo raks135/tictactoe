@@ -363,7 +363,7 @@ private fun generateCountingPattern(): PatternQuestion {
     val start = Random.nextInt(1, 10)
     val sequence = listOf(start, start + 1, start + 2)
     val correctAnswer = start + 3
-    val options = generatePatternOptions(correctAnswer)
+    val options = generatePatternOptions(correctAnswer, increment = 1)
     
     return PatternQuestion(sequence, correctAnswer, options)
 }
@@ -373,7 +373,7 @@ private fun generateSkipCountingPattern(): PatternQuestion {
     val start = Random.nextInt(1, 6)
     val sequence = listOf(start, start + skip, start + skip * 2)
     val correctAnswer = start + skip * 3
-    val options = generatePatternOptions(correctAnswer)
+    val options = generatePatternOptions(correctAnswer, increment = skip)
     
     return PatternQuestion(sequence, correctAnswer, options)
 }
@@ -383,21 +383,42 @@ private fun generateIncreasingPattern(): PatternQuestion {
     val increment = Random.nextInt(2, 4)
     val sequence = listOf(start, start + increment, start + increment * 2)
     val correctAnswer = start + increment * 3
-    val options = generatePatternOptions(correctAnswer)
+    val options = generatePatternOptions(correctAnswer, increment = increment)
     
     return PatternQuestion(sequence, correctAnswer, options)
 }
 
-private fun generatePatternOptions(correctAnswer: Int): List<Int> {
+private fun generatePatternOptions(correctAnswer: Int, increment: Int): List<Int> {
     val options = mutableSetOf(correctAnswer)
     
+    // Generate options that are close to the correct answer but follow logical patterns
+    // Add answer - increment (one step back)
+    if (correctAnswer - increment > 0) {
+        options.add(correctAnswer - increment)
+    }
+    
+    // Add answer + increment (one step forward)
+    options.add(correctAnswer + increment)
+    
+    // Add answer - 1 (common mistake)
+    if (correctAnswer - 1 > 0) {
+        options.add(correctAnswer - 1)
+    }
+    
+    // Add answer + 1 (common mistake)
+    options.add(correctAnswer + 1)
+    
+    // If we still need more options, add some nearby numbers
     while (options.size < 4) {
-        val offset = Random.nextInt(-5, 6)
+        val offset = Random.nextInt(-2, 3)
         val option = (correctAnswer + offset).coerceAtLeast(1)
-        if (option != correctAnswer) {
+        if (option != correctAnswer && option <= 50) {
             options.add(option)
         }
     }
     
-    return options.shuffled()
+    // Take only 4 options and shuffle
+    return options.take(4).shuffled()
 }
+
+
