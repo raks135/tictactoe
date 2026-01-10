@@ -12,14 +12,6 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
 /**
- * Game mode selection
- */
-enum class GameMode {
-    VS_AI,
-    VS_PLAYER
-}
-
-/**
  * ViewModel for managing game state and logic
  */
 class GameViewModel(
@@ -33,7 +25,7 @@ class GameViewModel(
     private val _gameState = MutableStateFlow(GameState())
     val gameState: StateFlow<GameState> = _gameState.asStateFlow()
     
-    private val _gameMode = MutableStateFlow(GameMode.VS_AI)
+    private val _gameMode = MutableStateFlow(GameMode.SINGLE_PLAYER)
     val gameMode: StateFlow<GameMode> = _gameMode.asStateFlow()
     
     private val _aiPlayer = MutableStateFlow(Player.O)
@@ -56,8 +48,8 @@ class GameViewModel(
             return
         }
         
-        // Don't allow moves if it's AI's turn in VS_AI mode
-        if (_gameMode.value == GameMode.VS_AI && currentState.currentPlayer == _aiPlayer.value) {
+        // Don't allow moves if it's AI's turn in SINGLE_PLAYER mode
+        if (_gameMode.value == GameMode.SINGLE_PLAYER && currentState.currentPlayer == _aiPlayer.value) {
             return
         }
         
@@ -68,7 +60,7 @@ class GameViewModel(
         // Check if game is over
         if (newState.status != GameStatus.IN_PROGRESS) {
             handleGameOver(newState.status)
-        } else if (_gameMode.value == GameMode.VS_AI) {
+        } else if (_gameMode.value == GameMode.SINGLE_PLAYER) {
             // Trigger AI move
             makeAiMove()
         }
@@ -116,8 +108,8 @@ class GameViewModel(
         
         var newState = gameEngine.undoMove(_gameState.value)
         
-        // In VS_AI mode, undo two moves to get back to player's turn
-        if (_gameMode.value == GameMode.VS_AI && newState.moveHistory.isNotEmpty()) {
+        // In SINGLE_PLAYER mode, undo two moves to get back to player's turn
+        if (_gameMode.value == GameMode.SINGLE_PLAYER && newState.moveHistory.isNotEmpty()) {
             newState = gameEngine.undoMove(newState)
         }
         
@@ -133,7 +125,7 @@ class GameViewModel(
         _showGameOverDialog.value = false
         
         // If AI goes first, make its move
-        if (_gameMode.value == GameMode.VS_AI && _aiPlayer.value == Player.X) {
+        if (_gameMode.value == GameMode.SINGLE_PLAYER && _aiPlayer.value == Player.X) {
             makeAiMove()
         }
     }
