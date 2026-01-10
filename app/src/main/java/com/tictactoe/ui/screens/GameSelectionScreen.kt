@@ -69,6 +69,20 @@ fun GameSelectionScreen(
                 icon = Icons.Default.Remove,
                 gradient = listOf(Color(0xFF3B82F6), Color(0xFF2563EB)),
                 route = "subtraction"
+            ),
+            GameCard(
+                title = "Color Matching",
+                description = "Learn colors!",
+                icon = Icons.Default.Palette,
+                gradient = listOf(Color(0xFFEC4899), Color(0xFFDB2777)),
+                route = "colors"
+            ),
+            GameCard(
+                title = "Shape Recognition",
+                description = "Identify shapes!",
+                icon = Icons.Default.Category,
+                gradient = listOf(Color(0xFF8B5CF6), Color(0xFF7C3AED)),
+                route = "shapes"
             )
         )
     }

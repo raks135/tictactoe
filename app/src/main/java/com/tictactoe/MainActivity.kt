@@ -20,8 +20,10 @@ import com.tictactoe.ui.screens.MenuScreen
 import com.tictactoe.ui.screens.SettingsScreen
 import com.tictactoe.ui.screens.TicTacToeSetupScreen
 import com.tictactoe.ui.screens.games.AdditionGameScreen
+import com.tictactoe.ui.screens.games.ColorMatchingGameScreen
 import com.tictactoe.ui.screens.games.NumberSequenceGameScreen
 import com.tictactoe.ui.screens.games.PatternGameScreen
+import com.tictactoe.ui.screens.games.ShapeGameScreen
 import com.tictactoe.ui.screens.games.SubtractionGameScreen
 import com.tictactoe.ui.theme.TicTacToeTheme
 import com.tictactoe.ui.utils.HapticManager
@@ -163,6 +165,22 @@ fun TicTacToeApp(
         
         composable("subtraction") {
             SubtractionGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("colors") {
+            ColorMatchingGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("shapes") {
+            ShapeGameScreen(
                 onBack = {
                     navController.popBackStack()
                 }

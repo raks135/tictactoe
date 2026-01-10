@@ -389,35 +389,49 @@ private fun generateIncreasingPattern(): PatternQuestion {
 }
 
 private fun generatePatternOptions(correctAnswer: Int, increment: Int): List<Int> {
-    val options = mutableSetOf(correctAnswer)
+    val options = mutableListOf<Int>()
     
-    // Generate options that are close to the correct answer but follow logical patterns
-    // Add answer - increment (one step back)
-    if (correctAnswer - increment > 0) {
-        options.add(correctAnswer - increment)
+    // Always include the correct answer first
+    options.add(correctAnswer)
+    
+    // Add the previous number in the pattern (one step back)
+    val prevInPattern = correctAnswer - increment
+    if (prevInPattern > 0 && !options.contains(prevInPattern)) {
+        options.add(prevInPattern)
     }
     
-    // Add answer + increment (one step forward)
-    options.add(correctAnswer + increment)
-    
-    // Add answer - 1 (common mistake)
-    if (correctAnswer - 1 > 0) {
-        options.add(correctAnswer - 1)
+    // Add the next number in the pattern (one step forward)
+    val nextInPattern = correctAnswer + increment
+    if (nextInPattern <= 50 && !options.contains(nextInPattern)) {
+        options.add(nextInPattern)
     }
     
-    // Add answer + 1 (common mistake)
-    options.add(correctAnswer + 1)
+    // Add one number that's close but wrong (off by 1 or 2)
+    val closeWrong = if (Random.nextBoolean()) correctAnswer - 1 else correctAnswer + 1
+    if (closeWrong > 0 && closeWrong <= 50 && !options.contains(closeWrong)) {
+        options.add(closeWrong)
+    }
     
-    // If we still need more options, add some nearby numbers
+    // If we still don't have 4 options, add more nearby numbers
+    var attempts = 0
+    while (options.size < 4 && attempts < 10) {
+        val offset = Random.nextInt(-3, 4)
+        val candidate = correctAnswer + offset
+        if (candidate > 0 && candidate <= 50 && !options.contains(candidate)) {
+            options.add(candidate)
+        }
+        attempts++
+    }
+    
+    // Ensure we have exactly 4 options
     while (options.size < 4) {
-        val offset = Random.nextInt(-2, 3)
-        val option = (correctAnswer + offset).coerceAtLeast(1)
-        if (option != correctAnswer && option <= 50) {
-            options.add(option)
+        val filler = Random.nextInt(1, 51)
+        if (!options.contains(filler)) {
+            options.add(filler)
         }
     }
     
-    // Take only 4 options and shuffle
+    // Shuffle and return exactly 4 options
     return options.take(4).shuffled()
 }
 
