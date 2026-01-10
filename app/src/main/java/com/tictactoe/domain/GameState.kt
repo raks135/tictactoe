@@ -20,6 +20,23 @@ enum class GameStatus {
 }
 
 /**
+ * Represents the game mode
+ */
+enum class GameMode {
+    SINGLE_PLAYER,  // Player vs AI
+    TWO_PLAYER      // Player vs Player
+}
+
+/**
+ * Represents AI difficulty level
+ */
+enum class Difficulty {
+    EASY,
+    MEDIUM,
+    HARD
+}
+
+/**
  * Represents a move on the board
  */
 data class Move(val row: Int, val col: Int, val player: Player)
