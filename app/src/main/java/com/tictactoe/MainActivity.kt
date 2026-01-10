@@ -15,8 +15,13 @@ import androidx.navigation.compose.rememberNavController
 import com.tictactoe.data.GameRepository
 import com.tictactoe.data.PreferencesManager
 import com.tictactoe.ui.screens.GameScreen
+import com.tictactoe.ui.screens.GameSelectionScreen
 import com.tictactoe.ui.screens.MenuScreen
 import com.tictactoe.ui.screens.SettingsScreen
+import com.tictactoe.ui.screens.games.AdditionGameScreen
+import com.tictactoe.ui.screens.games.NumberSequenceGameScreen
+import com.tictactoe.ui.screens.games.PatternGameScreen
+import com.tictactoe.ui.screens.games.SubtractionGameScreen
 import com.tictactoe.ui.theme.TicTacToeTheme
 import com.tictactoe.ui.utils.HapticManager
 import com.tictactoe.ui.utils.SoundManager
@@ -87,10 +92,24 @@ fun TicTacToeApp(
             MenuScreen(
                 viewModel = viewModel,
                 onStartGame = {
-                    navController.navigate("game")
+                    navController.navigate("game_selection")
                 },
                 onNavigateToSettings = {
                     navController.navigate("settings")
+                }
+            )
+        }
+        
+        composable("game_selection") {
+            GameSelectionScreen(
+                onNavigateToGame = { route ->
+                    when (route) {
+                        "tictactoe" -> navController.navigate("game")
+                        else -> navController.navigate(route)
+                    }
+                },
+                onBack = {
+                    navController.popBackStack()
                 }
             )
         }
@@ -103,6 +122,38 @@ fun TicTacToeApp(
                 },
                 onNavigateToSettings = {
                     navController.navigate("settings")
+                }
+            )
+        }
+        
+        composable("number_sequence") {
+            NumberSequenceGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("patterns") {
+            PatternGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("addition") {
+            AdditionGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+        
+        composable("subtraction") {
+            SubtractionGameScreen(
+                onBack = {
+                    navController.popBackStack()
                 }
             )
         }
