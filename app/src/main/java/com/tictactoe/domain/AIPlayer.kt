@@ -3,15 +3,6 @@ package com.tictactoe.domain
 import kotlin.random.Random
 
 /**
- * AI difficulty levels
- */
-enum class Difficulty {
-    EASY,    // Makes random moves with occasional good moves
-    MEDIUM,  // Uses minimax with limited depth
-    HARD     // Uses full minimax with alpha-beta pruning
-}
-
-/**
  * AI player that uses minimax algorithm to make optimal moves
  */
 class AIPlayer(private val difficulty: Difficulty = Difficulty.HARD) {

@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.sp
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
-enum class FeedbackCharacter(val emoji: String, val name: String) {
+enum class FeedbackCharacter(val emoji: String, val displayName: String) {
     HULK("💪", "Hulk"),
     SPIDERMAN("🕷️", "Spider-Man"),
     KINGKONG("🦍", "King Kong"),
@@ -139,7 +139,7 @@ private fun CharacterCard(feedbackData: FeedbackMessage) {
             if (feedbackData.isCorrect) {
                 Spacer(modifier = Modifier.height(8.dp))
                 Text(
-                    text = "- ${feedbackData.character.name}",
+                    text = "- ${feedbackData.character.displayName}",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
                     color = Color.White.copy(alpha = 0.9f),
