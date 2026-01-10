@@ -10,8 +10,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.tictactoe.domain.Difficulty
+import com.tictactoe.domain.GameMode
 import com.tictactoe.domain.Player
-import com.tictactoe.ui.viewmodels.GameMode
 import com.tictactoe.ui.viewmodels.GameViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -113,7 +113,7 @@ fun MenuScreen(
             
             OutlinedButton(
                 onClick = {
-                    viewModel.setGameMode(GameMode.VS_PLAYER)
+                    viewModel.setGameMode(GameMode.TWO_PLAYER)
                     onStartGame()
                 },
                 modifier = Modifier
@@ -133,7 +133,7 @@ fun MenuScreen(
             onDismiss = { showDifficultyDialog = false },
             onDifficultySelected = { difficulty ->
                 viewModel.setDifficulty(difficulty)
-                viewModel.setGameMode(GameMode.VS_AI)
+                viewModel.setGameMode(GameMode.SINGLE_PLAYER)
                 showDifficultyDialog = false
                 showPlayerSelectionDialog = true
             }
