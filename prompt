@@ -1,0 +1,97 @@
+Objective
+Build a production-ready Tic-Tac-Toe mobile application that demonstrates clean architecture, strong UX discipline, and scalable engineering practices. This is not a toy demo. Treat it as a portfolio-quality product.
+
+Target Platforms
+
+iOS and Android
+
+Single shared codebase preferred (Flutter or React Native). Native is acceptable only if justified.
+
+Core Functional Requirements
+
+Classic 3×3 Tic-Tac-Toe gameplay
+
+Two modes:
+
+Player vs Player (local)
+
+Player vs AI
+
+AI must support at least two difficulty levels:
+
+Easy: random or semi-random logic
+
+Hard: unbeatable (Minimax or equivalent algorithm)
+
+Clear win, draw, and invalid move detection
+
+Game reset and replay without app restart
+
+Non-Functional Requirements (This Is Where Most Apps Fail)
+
+Instant response time (<100ms for AI move)
+
+No unnecessary animations or gimmicks
+
+Offline-first, zero network dependency
+
+Deterministic game logic with full test coverage
+
+Architecture Expectations
+
+Separation of concerns is mandatory (UI, game logic, state management)
+
+State management must be explicit and predictable (no spaghetti state)
+
+Business logic must be framework-agnostic
+
+Code must be readable by another senior engineer without explanation
+
+UX / UI Standards
+
+Clean, minimal design
+
+Touch targets must meet accessibility guidelines
+
+Clear visual feedback for:
+
+Current player
+
+Winning line
+
+Game end state
+
+No clutter. If an element does not add value, remove it.
+
+Testing & Quality Bar
+
+Unit tests for:
+
+Win logic
+
+Draw logic
+
+AI decision making
+
+No magic numbers
+
+No hard-coded UI logic tied to game rules
+
+Deliverables
+
+Fully working mobile app
+
+Well-structured source code
+
+README explaining:
+
+Architecture decisions
+
+AI approach
+
+Trade-offs made and why
+
+Success Criteria
+The app must be boring in the best possible way: predictable, fast, correct, and clean.
+If it feels like a coding exercise, it has failed.
+If it feels like a finished product, it has passed.
