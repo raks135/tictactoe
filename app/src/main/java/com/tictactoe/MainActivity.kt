@@ -19,6 +19,7 @@ import com.tictactoe.ui.screens.GameSelectionScreen
 import com.tictactoe.ui.screens.MenuScreen
 import com.tictactoe.ui.screens.SettingsScreen
 import com.tictactoe.ui.screens.TicTacToeSetupScreen
+import com.tictactoe.ui.screens.games.AdditionGameScreen
 import com.tictactoe.ui.screens.games.AnimalMatchGameScreen
 import com.tictactoe.ui.screens.games.BubblePopGameScreen
 import com.tictactoe.ui.screens.games.ColorMatchingGameScreen
