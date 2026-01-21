@@ -7,6 +7,7 @@ import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -19,9 +20,12 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.rotate
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tictactoe.data.PreferencesManager
+import com.tictactoe.ui.components.GameHelpDialog
 import kotlinx.coroutines.delay
 import kotlin.math.abs
 import kotlin.random.Random
@@ -48,12 +52,38 @@ enum class ObjectType {
 fun SpidermanGameScreen(
     onBack: () -> Unit
 ) {
+    val context = LocalContext.current
+    val prefsManager = remember { PreferencesManager(context) }
+
     var playerLane by remember { mutableStateOf(1) } // Start in middle lane
     var gameObjects by remember { mutableStateOf(listOf<GameObject>()) }
     var score by remember { mutableStateOf(0) }
+    var highScore by remember { mutableStateOf(prefsManager.spiderRunHighScore) }
     var isGameOver by remember { mutableStateOf(false) }
     var gameSpeed by remember { mutableStateOf(BASE_SPEED) }
     var nextId by remember { mutableStateOf(0L) }
+
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        GameHelpDialog(
+            title = "Spider Run",
+            lines = listOf(
+                "Tap LEFT side to move left, RIGHT side to move right.",
+                "Avoid the white web obstacles.",
+                "Collect gold coins to get +10 points.",
+                "Try to beat the High Score!"
+            ),
+            onDismiss = { showHelp = false }
+        )
+    }
+
+    LaunchedEffect(isGameOver) {
+        if (isGameOver && score > highScore) {
+            highScore = score
+            prefsManager.spiderRunHighScore = score
+        }
+    }
     
     // Game Loop
     LaunchedEffect(isGameOver) {
@@ -121,7 +151,7 @@ fun SpidermanGameScreen(
                             color = Color.White
                         )
                         Text(
-                            "Score: $score",
+                            "Score: $score   High: $highScore",
                             fontSize = 14.sp,
                             color = Color.White.copy(alpha = 0.8f)
                         )
@@ -133,6 +163,9 @@ fun SpidermanGameScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, "Info", tint = Color.White)
+                    }
                     IconButton(onClick = { 
                         // Reset Game
                         isGameOver = false
@@ -145,7 +178,10 @@ fun SpidermanGameScreen(
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color(0xFFB71C1C)
+                    containerColor = Color(0xFFB71C1C),
+                    titleContentColor = Color.White,
+                    navigationIconContentColor = Color.White,
+                    actionIconContentColor = Color.White
                 )
             )
         }
@@ -166,6 +202,30 @@ fun SpidermanGameScreen(
                     }
                 }
         ) {
+            Card(
+                modifier = Modifier
+                    .align(Alignment.TopCenter)
+                    .padding(top = 16.dp),
+                colors = CardDefaults.cardColors(containerColor = Color.White.copy(alpha = 0.12f))
+            ) {
+                Row(
+                    modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                    horizontalArrangement = Arrangement.spacedBy(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text(
+                        text = "Score: $score",
+                        color = Color.White,
+                        fontWeight = FontWeight.Bold
+                    )
+                    Text(
+                        text = "High: $highScore",
+                        color = Color.White.copy(alpha = 0.9f),
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+
             Canvas(modifier = Modifier.fillMaxSize()) {
                 val laneWidth = size.width / LANE_COUNT
                 val height = size.height
@@ -254,6 +314,13 @@ fun SpidermanGameScreen(
                             "Final Score: $score",
                             color = Color.White,
                             fontSize = 24.sp
+                        )
+                        Spacer(modifier = Modifier.height(8.dp))
+                        Text(
+                            "High Score: $highScore",
+                            color = Color.White.copy(alpha = 0.9f),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold
                         )
                         Spacer(modifier = Modifier.height(32.dp))
                         Button(

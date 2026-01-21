@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Pets
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
@@ -20,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tictactoe.ui.components.CharacterFeedback
+import com.tictactoe.ui.components.GameHelpDialog
 import kotlinx.coroutines.delay
 
 enum class AnimalCategory(val title: String) {
@@ -48,6 +50,19 @@ fun AnimalMatchGameScreen(
     var matchedIds by remember { mutableStateOf(setOf<Int>()) }
     var showFeedback by remember { mutableStateOf<Boolean?>(null) }
     var score by remember { mutableStateOf(0) }
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        GameHelpDialog(
+            title = "Animal Match",
+            lines = listOf(
+                "Pick an animal picture on the left.",
+                "Tap the matching name on the right.",
+                "Use tabs to switch Pets/Water Animals/Birds."
+            ),
+            onDismiss = { showHelp = false }
+        )
+    }
     
     // Reset when all matched
     LaunchedEffect(matchedIds) {
@@ -83,6 +98,9 @@ fun AnimalMatchGameScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, "Info")
+                    }
                     IconButton(onClick = { 
                         gameItems = generateAnimalGame(selectedCategory)
                         matchedIds = emptySet()

@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,6 +26,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tictactoe.ui.components.CharacterFeedback
+import com.tictactoe.ui.components.GameHelpDialog
 import kotlinx.coroutines.delay
 import kotlin.random.Random
 
@@ -50,6 +52,19 @@ fun ShapeGameScreen(
     var totalQuestions by remember { mutableStateOf(0) }
     var showFeedback by remember { mutableStateOf<Boolean?>(null) }
     var selectedShape by remember { mutableStateOf<GameShape?>(null) }
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        GameHelpDialog(
+            title = "Shape Recognition",
+            lines = listOf(
+                "Look at the shape shown on the card.",
+                "Tap the same shape from the options.",
+                "Try to get the highest score."
+            ),
+            onDismiss = { showHelp = false }
+        )
+    }
     
     LaunchedEffect(showFeedback) {
         if (showFeedback != null) {
@@ -82,6 +97,11 @@ fun ShapeGameScreen(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, "Info")
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

@@ -13,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import com.tictactoe.domain.GameStatus
 import com.tictactoe.domain.Player
 import com.tictactoe.ui.components.GameBoard
+import com.tictactoe.ui.components.GameHelpDialog
 import com.tictactoe.ui.viewmodels.GameViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -26,6 +27,19 @@ fun GameScreen(
     val gameState by viewModel.gameState.collectAsState()
     val isAiThinking by viewModel.isAiThinking.collectAsState()
     val showGameOverDialog by viewModel.showGameOverDialog.collectAsState()
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        GameHelpDialog(
+            title = "Tic-Tac-Toe",
+            lines = listOf(
+                "Tap an empty cell to place your mark.",
+                "Get 3 in a row (horizontal/vertical/diagonal) to win.",
+                "Use Undo to take back moves."
+            ),
+            onDismiss = { showHelp = false }
+        )
+    }
     
     Scaffold(
         topBar = {
@@ -37,6 +51,9 @@ fun GameScreen(
                     }
                 },
                 actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, contentDescription = "How to play")
+                    }
                     IconButton(onClick = onNavigateToSettings) {
                         Icon(Icons.Default.Settings, contentDescription = "Settings")
                     }

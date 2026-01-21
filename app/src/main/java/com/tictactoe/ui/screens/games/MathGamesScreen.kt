@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.tictactoe.domain.games.MathGameEngine
 import com.tictactoe.domain.games.MathQuestion
 import com.tictactoe.ui.components.CharacterFeedback
+import com.tictactoe.ui.components.GameHelpDialog
 import kotlinx.coroutines.delay
 
 @Composable
@@ -63,6 +65,28 @@ private fun MathGameScreen(
     var totalQuestions by remember { mutableStateOf(0) }
     var showFeedback by remember { mutableStateOf<Boolean?>(null) }
     var selectedAnswer by remember { mutableStateOf<Int?>(null) }
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        val lines = if (title.contains("Addition", ignoreCase = true)) {
+            listOf(
+                "Look at the numbers and the + sign.",
+                "Count the dots if you need help.",
+                "Tap the correct answer."
+            )
+        } else {
+            listOf(
+                "Look at the numbers and the − sign.",
+                "Count the dots if you need help.",
+                "Tap the correct answer."
+            )
+        }
+        GameHelpDialog(
+            title = title,
+            lines = lines,
+            onDismiss = { showHelp = false }
+        )
+    }
     
     LaunchedEffect(showFeedback) {
         if (showFeedback != null) {
@@ -95,6 +119,11 @@ private fun MathGameScreen(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, "Info")
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

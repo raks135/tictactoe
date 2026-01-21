@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,6 +19,7 @@ import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.tictactoe.ui.components.GameHelpDialog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlin.random.Random
@@ -38,6 +40,19 @@ fun BubblePopGameScreen(
     var score by remember { mutableStateOf(0) }
     var bubbles by remember { mutableStateOf(listOf<Bubble>()) }
     var nextBubbleId by remember { mutableStateOf(0L) }
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        GameHelpDialog(
+            title = "Bubble Pop",
+            lines = listOf(
+                "Tap bubbles to pop them.",
+                "Each pop adds +1 to your score.",
+                "Try to pop as many as you can."
+            ),
+            onDismiss = { showHelp = false }
+        )
+    }
     
     // Game loop for spawning bubbles
     LaunchedEffect(Unit) {
@@ -82,6 +97,11 @@ fun BubblePopGameScreen(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, "Info")
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

@@ -53,6 +53,20 @@ fun GameSelectionScreen(
                 route = "memory_match"
             ),
             GameCard(
+                title = "Simon Memory",
+                description = "Repeat the pattern",
+                icon = Icons.Default.Extension,
+                gradient = listOf(Color(0xFF6366F1), Color(0xFF8B5CF6)),
+                route = "simon_memory"
+            ),
+            GameCard(
+                title = "Emoji Sequence",
+                description = "Remember the order",
+                icon = Icons.Default.Face,
+                gradient = listOf(Color(0xFF06B6D4), Color(0xFF0891B2)),
+                route = "emoji_sequence"
+            ),
+            GameCard(
                 title = "Number Sequence",
                 description = "What comes next?",
                 icon = Icons.Default.List,

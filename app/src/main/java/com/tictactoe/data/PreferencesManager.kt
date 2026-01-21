@@ -24,6 +24,11 @@ class PreferencesManager(context: Context) {
         private const val KEY_WINS_O = "wins_o"
         private const val KEY_DRAWS = "draws"
         private const val KEY_GAMES_PLAYED = "games_played"
+
+        private const val KEY_HIGH_SCORE_SPIDER_RUN = "high_score_spider_run"
+
+        private const val KEY_BEST_LEVEL_SIMON = "best_level_simon"
+        private const val KEY_BEST_LEVEL_EMOJI_SEQUENCE = "best_level_emoji_sequence"
     }
     
     // Settings
@@ -59,6 +64,18 @@ class PreferencesManager(context: Context) {
     var gamesPlayed: Int
         get() = prefs.getInt(KEY_GAMES_PLAYED, 0)
         set(value) = prefs.edit().putInt(KEY_GAMES_PLAYED, value).apply()
+
+    var spiderRunHighScore: Int
+        get() = prefs.getInt(KEY_HIGH_SCORE_SPIDER_RUN, 0)
+        set(value) = prefs.edit().putInt(KEY_HIGH_SCORE_SPIDER_RUN, value).apply()
+
+    var simonBestLevel: Int
+        get() = prefs.getInt(KEY_BEST_LEVEL_SIMON, 0)
+        set(value) = prefs.edit().putInt(KEY_BEST_LEVEL_SIMON, value).apply()
+
+    var emojiBestLevel: Int
+        get() = prefs.getInt(KEY_BEST_LEVEL_EMOJI_SEQUENCE, 0)
+        set(value) = prefs.edit().putInt(KEY_BEST_LEVEL_EMOJI_SEQUENCE, value).apply()
     
     /**
      * Reset all statistics

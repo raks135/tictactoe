@@ -11,6 +11,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Close
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.tictactoe.domain.games.NumberGameEngine
 import com.tictactoe.domain.games.NumberQuestion
 import com.tictactoe.ui.components.CharacterFeedback
+import com.tictactoe.ui.components.GameHelpDialog
 import kotlinx.coroutines.delay
 
 @Composable
@@ -37,6 +39,19 @@ fun NumberSequenceGameScreen(
     var totalQuestions by remember { mutableStateOf(0) }
     var showFeedback by remember { mutableStateOf<Boolean?>(null) }
     var selectedAnswer by remember { mutableStateOf<Int?>(null) }
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        GameHelpDialog(
+            title = "Number Sequence",
+            lines = listOf(
+                "Read the question (before/after/fill the gap).",
+                "Tap the correct number from the options.",
+                "Try to get the highest score."
+            ),
+            onDismiss = { showHelp = false }
+        )
+    }
     
     LaunchedEffect(showFeedback) {
         if (showFeedback != null) {
@@ -69,6 +84,11 @@ fun NumberSequenceGameScreen(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, "Info")
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import com.tictactoe.domain.games.MemoryCard
 import com.tictactoe.domain.games.MemoryGameEngine
 import com.tictactoe.ui.components.CharacterFeedback
+import com.tictactoe.ui.components.GameHelpDialog
 import kotlinx.coroutines.delay
 
 @Composable
@@ -37,6 +39,19 @@ fun MemoryGameScreen(
     var matchedPairs by remember { mutableStateOf(0) }
     var moves by remember { mutableStateOf(0) }
     var showFeedback by remember { mutableStateOf<Boolean?>(null) }
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        GameHelpDialog(
+            title = "Memory Match",
+            lines = listOf(
+                "Tap a card to flip it.",
+                "Flip two cards to find a matching pair.",
+                "Match all pairs with fewer moves."
+            ),
+            onDismiss = { showHelp = false }
+        )
+    }
     
     // Check for match when 2 cards are flipped
     LaunchedEffect(flippedIndices) {
@@ -107,6 +122,11 @@ fun MemoryGameScreen(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, "Info")
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(

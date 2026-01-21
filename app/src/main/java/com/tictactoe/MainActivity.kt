@@ -26,9 +26,11 @@ import com.tictactoe.ui.screens.games.ColorMatchingGameScreen
 import com.tictactoe.ui.screens.games.MemoryGameScreen
 import com.tictactoe.ui.screens.games.NumberSequenceGameScreen
 import com.tictactoe.ui.screens.games.PatternGameScreen
+import com.tictactoe.ui.screens.games.SimonMemoryGameScreen
 import com.tictactoe.ui.screens.games.ShapeGameScreen
 import com.tictactoe.ui.screens.games.SpidermanGameScreen
 import com.tictactoe.ui.screens.games.SubtractionGameScreen
+import com.tictactoe.ui.screens.games.EmojiSequenceGameScreen
 import com.tictactoe.ui.theme.TicTacToeTheme
 import com.tictactoe.ui.utils.HapticManager
 import com.tictactoe.ui.utils.SoundManager
@@ -145,6 +147,22 @@ fun TicTacToeApp(
 
         composable("memory_match") {
             MemoryGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("simon_memory") {
+            SimonMemoryGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("emoji_sequence") {
+            EmojiSequenceGameScreen(
                 onBack = {
                     navController.popBackStack()
                 }

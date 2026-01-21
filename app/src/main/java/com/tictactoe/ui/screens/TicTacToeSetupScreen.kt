@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Info
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.SmartToy
 import androidx.compose.material3.*
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.tictactoe.domain.GameMode
 import com.tictactoe.domain.Difficulty
+import com.tictactoe.ui.components.GameHelpDialog
 
 data class ModeOption(
     val title: String,
@@ -48,6 +50,19 @@ fun TicTacToeSetupScreen(
     var selectedMode by remember { mutableStateOf<GameMode?>(null) }
     var selectedDifficulty by remember { mutableStateOf<Difficulty?>(null) }
     var showDifficultySelection by remember { mutableStateOf(false) }
+    var showHelp by remember { mutableStateOf(false) }
+
+    if (showHelp) {
+        GameHelpDialog(
+            title = "Tic-Tac-Toe",
+            lines = listOf(
+                "Choose Player vs Player or Player vs AI.",
+                "If you choose AI, pick the difficulty.",
+                "Get 3 in a row to win."
+            ),
+            onDismiss = { showHelp = false }
+        )
+    }
     
     val modeOptions = remember {
         listOf(
@@ -104,6 +119,11 @@ fun TicTacToeSetupScreen(
                 navigationIcon = {
                     IconButton(onClick = onBack) {
                         Icon(Icons.Default.ArrowBack, "Back")
+                    }
+                },
+                actions = {
+                    IconButton(onClick = { showHelp = true }) {
+                        Icon(Icons.Default.Info, "Info")
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
