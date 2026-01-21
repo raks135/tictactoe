@@ -19,13 +19,14 @@ import com.tictactoe.ui.screens.GameSelectionScreen
 import com.tictactoe.ui.screens.MenuScreen
 import com.tictactoe.ui.screens.SettingsScreen
 import com.tictactoe.ui.screens.TicTacToeSetupScreen
-import com.tictactoe.ui.screens.games.AdditionGameScreen
+import com.tictactoe.ui.screens.games.AnimalMatchGameScreen
 import com.tictactoe.ui.screens.games.BubblePopGameScreen
 import com.tictactoe.ui.screens.games.ColorMatchingGameScreen
 import com.tictactoe.ui.screens.games.MemoryGameScreen
 import com.tictactoe.ui.screens.games.NumberSequenceGameScreen
 import com.tictactoe.ui.screens.games.PatternGameScreen
 import com.tictactoe.ui.screens.games.ShapeGameScreen
+import com.tictactoe.ui.screens.games.SpidermanGameScreen
 import com.tictactoe.ui.screens.games.SubtractionGameScreen
 import com.tictactoe.ui.theme.TicTacToeTheme
 import com.tictactoe.ui.utils.HapticManager
@@ -159,6 +160,22 @@ fun TicTacToeApp(
 
         composable("bubble_pop") {
             BubblePopGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("animal_match") {
+            AnimalMatchGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("spiderman") {
+            SpidermanGameScreen(
                 onBack = {
                     navController.popBackStack()
                 }

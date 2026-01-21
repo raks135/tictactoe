@@ -74,6 +74,20 @@ fun GameSelectionScreen(
                 route = "bubble_pop"
             ),
             GameCard(
+                title = "Animal Match",
+                description = "Match animals",
+                icon = Icons.Default.Pets,
+                gradient = listOf(Color(0xFF81C784), Color(0xFF4CAF50)),
+                route = "animal_match"
+            ),
+            GameCard(
+                title = "Spider Run",
+                description = "Dodge & Collect",
+                icon = Icons.Default.BugReport,
+                gradient = listOf(Color(0xFFEF5350), Color(0xFFB71C1C)),
+                route = "spiderman"
+            ),
+            GameCard(
                 title = "Addition",
                 description = "Add numbers",
                 icon = Icons.Default.Add,

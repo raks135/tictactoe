@@ -114,7 +114,7 @@ fun ShapeGameScreen(
                 Card(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(300.dp),
+                        .wrapContentHeight(),
                     shape = RoundedCornerShape(24.dp),
                     colors = CardDefaults.cardColors(
                         containerColor = Color.White
@@ -123,24 +123,24 @@ fun ShapeGameScreen(
                 ) {
                     Column(
                         modifier = Modifier
-                            .fillMaxSize()
+                            .fillMaxWidth()
                             .padding(24.dp),
                         horizontalAlignment = Alignment.CenterHorizontally,
                         verticalArrangement = Arrangement.Center
                     ) {
                         Text(
                             text = "Find the shape:",
-                            fontSize = 28.sp,
+                            fontSize = 24.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF6B7280)
                         )
                         
-                        Spacer(modifier = Modifier.height(24.dp))
+                        Spacer(modifier = Modifier.height(16.dp))
                         
                         // Target shape
                         ShapeDrawing(
                             shape = currentQuestion.targetShape,
-                            size = 150.dp,
+                            size = 120.dp,
                             color = Color(0xFF8B5CF6)
                         )
                         
@@ -148,7 +148,7 @@ fun ShapeGameScreen(
                         
                         Text(
                             text = currentQuestion.targetShape.displayName,
-                            fontSize = 32.sp,
+                            fontSize = 28.sp,
                             fontWeight = FontWeight.Bold,
                             color = Color(0xFF8B5CF6)
                         )
