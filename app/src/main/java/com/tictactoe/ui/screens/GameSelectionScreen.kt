@@ -46,11 +46,32 @@ fun GameSelectionScreen(
                 route = "tictactoe"
             ),
             GameCard(
+                title = "Memory Match",
+                description = "Find the pairs",
+                icon = Icons.Default.Star,
+                gradient = listOf(Color(0xFF06B6D4), Color(0xFF0891B2)),
+                route = "memory_match"
+            ),
+            GameCard(
                 title = "Number Sequence",
                 description = "What comes next?",
                 icon = Icons.Default.List,
                 gradient = listOf(Color(0xFF10B981), Color(0xFF059669)),
                 route = "number_sequence"
+            ),
+            GameCard(
+                title = "Number Patterns",
+                description = "Complete sequence",
+                icon = Icons.Default.LinearScale,
+                gradient = listOf(Color(0xFFF59E0B), Color(0xFFD97706)),
+                route = "patterns"
+            ),
+            GameCard(
+                title = "Bubble Pop",
+                description = "Pop bubbles!",
+                icon = Icons.Default.BubbleChart,
+                gradient = listOf(Color(0xFF4FC3F7), Color(0xFF0288D1)),
+                route = "bubble_pop"
             ),
             GameCard(
                 title = "Addition",

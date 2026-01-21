@@ -20,8 +20,11 @@ import com.tictactoe.ui.screens.MenuScreen
 import com.tictactoe.ui.screens.SettingsScreen
 import com.tictactoe.ui.screens.TicTacToeSetupScreen
 import com.tictactoe.ui.screens.games.AdditionGameScreen
+import com.tictactoe.ui.screens.games.BubblePopGameScreen
 import com.tictactoe.ui.screens.games.ColorMatchingGameScreen
+import com.tictactoe.ui.screens.games.MemoryGameScreen
 import com.tictactoe.ui.screens.games.NumberSequenceGameScreen
+import com.tictactoe.ui.screens.games.PatternGameScreen
 import com.tictactoe.ui.screens.games.ShapeGameScreen
 import com.tictactoe.ui.screens.games.SubtractionGameScreen
 import com.tictactoe.ui.theme.TicTacToeTheme
@@ -134,6 +137,30 @@ fun TicTacToeApp(
                 },
                 onNavigateToSettings = {
                     navController.navigate("settings")
+                }
+            )
+        }
+
+        composable("memory_match") {
+            MemoryGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("patterns") {
+            PatternGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("bubble_pop") {
+            BubblePopGameScreen(
+                onBack = {
+                    navController.popBackStack()
                 }
             )
         }
