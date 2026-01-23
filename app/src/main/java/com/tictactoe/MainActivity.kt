@@ -21,6 +21,7 @@ import com.tictactoe.ui.screens.SettingsScreen
 import com.tictactoe.ui.screens.TicTacToeSetupScreen
 import com.tictactoe.ui.screens.games.AdditionGameScreen
 import com.tictactoe.ui.screens.games.AnimalMatchGameScreen
+import com.tictactoe.ui.screens.games.BlockBlastGameScreen
 import com.tictactoe.ui.screens.games.BubblePopGameScreen
 import com.tictactoe.ui.screens.games.ColorMatchingGameScreen
 import com.tictactoe.ui.screens.games.MemoryGameScreen
@@ -195,6 +196,14 @@ fun TicTacToeApp(
 
         composable("spiderman") {
             SpidermanGameScreen(
+                onBack = {
+                    navController.popBackStack()
+                }
+            )
+        }
+
+        composable("block_blast") {
+            BlockBlastGameScreen(
                 onBack = {
                     navController.popBackStack()
                 }

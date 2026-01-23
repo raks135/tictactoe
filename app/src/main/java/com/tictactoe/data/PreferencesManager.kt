@@ -29,6 +29,7 @@ class PreferencesManager(context: Context) {
 
         private const val KEY_BEST_LEVEL_SIMON = "best_level_simon"
         private const val KEY_BEST_LEVEL_EMOJI_SEQUENCE = "best_level_emoji_sequence"
+        private const val KEY_HIGH_SCORE_BLOCK_BLAST = "high_score_block_blast"
     }
     
     // Settings
@@ -76,6 +77,10 @@ class PreferencesManager(context: Context) {
     var emojiBestLevel: Int
         get() = prefs.getInt(KEY_BEST_LEVEL_EMOJI_SEQUENCE, 0)
         set(value) = prefs.edit().putInt(KEY_BEST_LEVEL_EMOJI_SEQUENCE, value).apply()
+
+    var blockBlastHighScore: Int
+        get() = prefs.getInt(KEY_HIGH_SCORE_BLOCK_BLAST, 0)
+        set(value) = prefs.edit().putInt(KEY_HIGH_SCORE_BLOCK_BLAST, value).apply()
     
     /**
      * Reset all statistics

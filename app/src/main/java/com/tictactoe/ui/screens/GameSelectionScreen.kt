@@ -102,6 +102,13 @@ fun GameSelectionScreen(
                 route = "spiderman"
             ),
             GameCard(
+                title = "Block Blast",
+                description = "Fill the grid",
+                icon = Icons.Default.GridView,
+                gradient = listOf(Color(0xFFFFA726), Color(0xFFE65100)),
+                route = "block_blast"
+            ),
+            GameCard(
                 title = "Addition",
                 description = "Add numbers",
                 icon = Icons.Default.Add,
