@@ -15,9 +15,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.onGloballyPositioned
+import androidx.compose.ui.layout.positionInWindow
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.text.font.FontWeight
@@ -259,7 +261,7 @@ fun BlockBlastGameScreen(
                         .background(Color.White.copy(alpha = 0.2f), RoundedCornerShape(8.dp))
                         .padding(4.dp)
                         .onGloballyPositioned { coordinates ->
-                            gridTopLeft = coordinates.parentCoordinates?.localToWindow(coordinates.positionInParent()) ?: Offset.Zero
+                            gridTopLeft = coordinates.positionInWindow()
                         }
                 ) {
                     Column {
@@ -397,7 +399,7 @@ fun DraggableShape(
     Box(
         modifier = Modifier
             .onGloballyPositioned { coordinates ->
-                position = coordinates.parentCoordinates?.localToWindow(coordinates.positionInParent()) ?: Offset.Zero
+                position = coordinates.positionInWindow()
             }
             .pointerInput(Unit) {
                 detectDragGestures(
